@@ -1,0 +1,17 @@
+import { Controller, Get } from '@nestjs/common';
+
+@Controller('orders')
+export class OrdersController {
+    @Get()
+    getOrders() {
+        return [{
+            id: 1,
+            name: 'Order 1',
+            description: 'Description 1',
+        }, {
+            id: 2,
+            name: 'Order 2',
+            description: 'Description 2',
+        }];
+    }
+}
