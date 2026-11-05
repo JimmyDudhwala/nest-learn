@@ -1,17 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
+import { OrdersService } from './orders.service.js';
 
 @Controller('orders')
 export class OrdersController {
+    constructor(private readonly ordersService: OrdersService) {}
     @Get()
     getOrders() {
-        return [{
-            id: 1,
-            name: 'Order 1',
-            description: 'Description 1',
-        }, {
-            id: 2,
-            name: 'Order 2',
-            description: 'Description 2',
-        }];
+        return this.ordersService.findAll();
     }
 }

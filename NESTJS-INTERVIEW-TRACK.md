@@ -40,8 +40,8 @@ Tutors update this block at the end of every session. Do not rename these fields
 | Status | IN PROGRESS |
 | Active phase | 1 |
 | Active day | 2 |
-| Active mode | Instruction |
-| Active step | 1 of 4 — add `OrdersService.findAll()` and move the array there |
+| Active mode | Quiz |
+| Active step | Oral question — student asked to skip; still needs: an interface needs a custom token, pointed at `OrdersController` |
 | Last session | 2026-11-05 |
 | Phase gates passed | none |
 | Final verdict | IN PROGRESS |
