@@ -3,12 +3,10 @@ import { OrdersService } from './orders.service.js';
 import { AuthGuard } from './auth.guard.js';
 import { CreateOrderDto } from './create-order.dto.js';
 import { TimingInterceptor } from './timing.interceptor.js';
-import { AllExceptionsFilter } from './all-exceptions.filter.js';
 
 @Controller('orders')
 @UseGuards(AuthGuard)
 @UseInterceptors(TimingInterceptor)  
-@UseFilters(AllExceptionsFilter)
 export class OrdersController {
     constructor(private readonly ordersService: OrdersService) {}
     @Get()

@@ -38,12 +38,12 @@ Tutors update this block at the end of every session. Do not rename these fields
 | Field | Value |
 | --- | --- |
 | Status | IN PROGRESS |
-| Active phase | 2 |
-| Active day | 4 |
+| Active phase | 3 |
+| Active day | 5 |
 | Active mode | Instruction |
-| Active step | 5 of 5 — register `AllExceptionsFilter` with `APP_FILTER` |
-| Last session | 2026-11-06 |
-| Phase gates passed | 1 |
+| Active step | 1 of 4 — `ConfigModule.forRoot({ isGlobal: true })` and read `PORT` |
+| Last session | 2026-11-07 |
+| Phase gates passed | 2 |
 | Final verdict | IN PROGRESS |
 
 Allowed `Status` values: `NOT STARTED`, `IN PROGRESS`, `READY`, `NOT READY`.
@@ -228,8 +228,8 @@ Check a box only after the tutor has verified it. The student does not check the
 ### Phase 2 — The request pipeline
 
 - [x] Day 3 — Middleware, a guard, and validation
-- [ ] Day 4 — Interceptors and exception filters
-- [ ] Phase 2 gate
+- [x] Day 4 — Interceptors and exception filters
+- [x] Phase 2 gate
 
 ### Phase 3 — Dependency injection in a real app
 
@@ -484,12 +484,12 @@ A passing answer must mention:
 
 **Practical**
 
-- [ ] Logger middleware runs and calls `next()`.
-- [ ] Missing `x-user` returns 401 from the guard.
-- [ ] `{ "productId": "", "qty": 0 }` returns 400 and does not enter the controller.
-- [ ] An extra JSON field is stripped by `whitelist`.
-- [ ] Unknown id returns the filter’s JSON shape.
-- [ ] The timing log is written after the handler, not before.
+- [x] Logger middleware runs and calls `next()`.
+- [x] Missing `x-user` returns 401 from the guard.
+- [x] `{ "productId": "", "qty": 0 }` returns 400 and does not enter the controller.
+- [x] An extra JSON field is stripped by `whitelist`.
+- [x] Unknown id returns the filter’s JSON shape.
+- [x] The timing log is written after the handler, not before.
 
 **Score:** both oral answers pass (all four placements correct), and every practical box is true.
 
@@ -1065,6 +1065,8 @@ Tutors append one row per session. Keep the newest row at the bottom.
 | 2026-11-06 | 1 gate | Quiz | Gate not passed | Question 1 passed: `main.ts` → `AppModule` → `OrdersModule` → `OrdersController` → `OrdersService`. Question 2 retry missed `OrdersController` as the injection site. Repeat Day 2’s constructor explanation. Day 2 stays checked. Middleware not started. |
 | 2026-11-06 | 1 gate | Quiz | Phase 1 gate passed | Question 2 passed from the controller: design metadata supplies the parameter, `providers` or `UnknownDependenciesException`, interface or duplicate type needs a custom token. `GET /orders` returned the two orders from `OrdersService`. Phase 2 not started. |
 | 2026-11-06 | 3 | Instruction | Day 3 checked | `LoggerMiddleware` logs orders routes. `AuthGuard` returns 401 without `x-user`. `ValidationPipe` returns 400 for an empty `productId` and `qty` 0. Oral passed in the student’s own words, including guard order global then controller then route. Day 4 not started. |
+| 2026-11-07 | 4 | Quiz | Day 4 checked | `TimingInterceptor` on `OrdersController`; `APP_FILTER` registers `AllExceptionsFilter`. `GET /orders` logs `duration` after success; `GET /orders/999` returns `{ statusCode, message, path, timestamp }` with no duration. Oral passed in the student’s own words: `next.handle()` is the handler result, interceptor can time/map/cache/skip, guard admits or denies, filters are route then controller then global. Phase 2 gate is next. |
+| 2026-11-07 | 2 gate | Quiz | Phase 2 gate passed | Walk was carried (service + filter-only-on-throw still need to be named). Placements: middleware for request id (retry; interceptor was after the guard), `AuthGuard`, `ValidationPipe`+`CreateOrderDto`, `AllExceptionsFilter`. Practical: 401 without `x-user`, 400 on empty `productId`/`qty` 0, extra JSON stripped, filter JSON on `/orders/999`, duration after successful handler. Phase 3 not started. |
 
 ---
 

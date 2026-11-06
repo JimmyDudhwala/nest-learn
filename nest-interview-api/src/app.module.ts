@@ -4,7 +4,8 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { OrdersModule } from './orders/orders.module.js';
 import { AuthModule } from './auth/auth.module.js';
-
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './orders/all-exceptions.filter.js';
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
 @Module({
@@ -21,6 +22,11 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     AuthModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,{
+    provide: APP_FILTER,
+    useClass: AllExceptionsFilter
+}],
+
 })
-export class AppModule {}
+export class AppModule {
+}
