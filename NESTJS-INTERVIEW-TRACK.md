@@ -38,12 +38,12 @@ Tutors update this block at the end of every session. Do not rename these fields
 | Field | Value |
 | --- | --- |
 | Status | IN PROGRESS |
-| Active phase | 1 |
-| Active day | 2 |
-| Active mode | Quiz |
-| Active step | Oral question — student asked to skip; still needs: an interface needs a custom token, pointed at `OrdersController` |
-| Last session | 2026-11-05 |
-| Phase gates passed | none |
+| Active phase | 2 |
+| Active day | 4 |
+| Active mode | Instruction |
+| Active step | 5 of 5 — register `AllExceptionsFilter` with `APP_FILTER` |
+| Last session | 2026-11-06 |
+| Phase gates passed | 1 |
 | Final verdict | IN PROGRESS |
 
 Allowed `Status` values: `NOT STARTED`, `IN PROGRESS`, `READY`, `NOT READY`.
@@ -222,12 +222,12 @@ Check a box only after the tutor has verified it. The student does not check the
 ### Phase 1 — How Nest is wired
 
 - [x] Day 1 — Bootstrap and modules
-- [ ] Day 2 — Providers and dependency injection
-- [ ] Phase 1 gate
+- [x] Day 2 — Providers and dependency injection
+- [x] Phase 1 gate
 
 ### Phase 2 — The request pipeline
 
-- [ ] Day 3 — Middleware, a guard, and validation
+- [x] Day 3 — Middleware, a guard, and validation
 - [ ] Day 4 — Interceptors and exception filters
 - [ ] Phase 2 gate
 
@@ -381,10 +381,10 @@ Run only after day 1 and day 2 are checked. Ask both questions one at a time. Th
 
 **Practical**
 
-- [ ] `GET /orders` returns JSON from `OrdersService`.
-- [ ] `OrdersModule` is imported by `AppModule`.
-- [ ] The controller does not construct the service with `new`.
-- [ ] `OrdersService` is on `providers`.
+- [x] `GET /orders` returns JSON from `OrdersService`.
+- [x] `OrdersModule` is imported by `AppModule`.
+- [x] The controller does not construct the service with `new`.
+- [x] `OrdersService` is on `providers`.
 
 **Score:** both oral answers pass, and every practical box is true.
 
@@ -1061,6 +1061,10 @@ Tutors append one row per session. Keep the newest row at the bottom.
 | --- | --- | --- | --- | --- |
 | — | — | — | — | No session yet. |
 | 2026-11-05 | 1 | Instruction | Day 1 checked | `GET /orders` returns the hardcoded list from `OrdersController`. Graph and `NestFactory.create` passed. Oral passed in the student’s own words from `OrdersModule`. `AuthModule` was added early and left for day 8. Day 2 not started. |
+| 2026-11-06 | 2 | Quiz | Day 2 checked | `OrdersService.findAll()` is injected into `OrdersController` and registered on `providers`. `GET /orders` returns that list. Export rule passed. Oral passed in the student’s own words, including an interface or duplicate type needing a custom token. Phase 1 gate is next. |
+| 2026-11-06 | 1 gate | Quiz | Gate not passed | Question 1 passed: `main.ts` → `AppModule` → `OrdersModule` → `OrdersController` → `OrdersService`. Question 2 retry missed `OrdersController` as the injection site. Repeat Day 2’s constructor explanation. Day 2 stays checked. Middleware not started. |
+| 2026-11-06 | 1 gate | Quiz | Phase 1 gate passed | Question 2 passed from the controller: design metadata supplies the parameter, `providers` or `UnknownDependenciesException`, interface or duplicate type needs a custom token. `GET /orders` returned the two orders from `OrdersService`. Phase 2 not started. |
+| 2026-11-06 | 3 | Instruction | Day 3 checked | `LoggerMiddleware` logs orders routes. `AuthGuard` returns 401 without `x-user`. `ValidationPipe` returns 400 for an empty `productId` and `qty` 0. Oral passed in the student’s own words, including guard order global then controller then route. Day 4 not started. |
 
 ---
 
@@ -1070,4 +1074,4 @@ Tutors append a row when they use Park mode. Teach the row only when its day is 
 
 | Asked on day | Question | Belongs on | Cleared |
 | --- | --- | --- | --- |
-| — | — | — | — |
+| 3 | Put the auth guard in a common folder so every module can use it | Day 9 — global guard | |
