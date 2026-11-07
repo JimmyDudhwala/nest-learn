@@ -1,8 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderDto } from './create-order.dto.js';
+import { UserService } from '../user/user.service.js';
 
 @Injectable()
 export class OrdersService {
+  constructor(private readonly userService: UserService) {}
+
 
   private readonly orders = [
     {
