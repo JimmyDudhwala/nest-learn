@@ -39,9 +39,9 @@ Tutors update this block at the end of every session. Do not rename these fields
 | --- | --- |
 | Status | IN PROGRESS |
 | Active phase | 3 |
-| Active day | 5 |
+| Active day | 6 |
 | Active mode | Instruction |
-| Active step | 1 of 4 — `ConfigModule.forRoot({ isGlobal: true })` and read `PORT` |
+| Active step | Not started — wait for continue |
 | Last session | 2026-11-07 |
 | Phase gates passed | 2 |
 | Final verdict | IN PROGRESS |
@@ -233,7 +233,7 @@ Check a box only after the tutor has verified it. The student does not check the
 
 ### Phase 3 — Dependency injection in a real app
 
-- [ ] Day 5 — Config and module boundaries
+- [x] Day 5 — Config and module boundaries
 - [ ] Day 6 — Custom providers
 - [ ] Day 7 — Scopes, then undo the request scope
 - [ ] Phase 3 gate
@@ -1067,6 +1067,15 @@ Tutors append one row per session. Keep the newest row at the bottom.
 | 2026-11-06 | 3 | Instruction | Day 3 checked | `LoggerMiddleware` logs orders routes. `AuthGuard` returns 401 without `x-user`. `ValidationPipe` returns 400 for an empty `productId` and `qty` 0. Oral passed in the student’s own words, including guard order global then controller then route. Day 4 not started. |
 | 2026-11-07 | 4 | Quiz | Day 4 checked | `TimingInterceptor` on `OrdersController`; `APP_FILTER` registers `AllExceptionsFilter`. `GET /orders` logs `duration` after success; `GET /orders/999` returns `{ statusCode, message, path, timestamp }` with no duration. Oral passed in the student’s own words: `next.handle()` is the handler result, interceptor can time/map/cache/skip, guard admits or denies, filters are route then controller then global. Phase 2 gate is next. |
 | 2026-11-07 | 2 gate | Quiz | Phase 2 gate passed | Walk was carried (service + filter-only-on-throw still need to be named). Placements: middleware for request id (retry; interceptor was after the guard), `AuthGuard`, `ValidationPipe`+`CreateOrderDto`, `AllExceptionsFilter`. Practical: 401 without `x-user`, 400 on empty `productId`/`qty` 0, extra JSON stripped, filter JSON on `/orders/999`, duration after successful handler. Phase 3 not started. |
+| 2026-11-07 | 5 | Instruction | Step 3 seen | `OrdersModule` imports `UserModule`. `OrdersService` injects `UserService`. Startup threw `UnknownDependenciesException`: `UserService` at index 0 is not available in `OrdersModule` because `UserModule` has no `exports`. Export is next. |
+| 2026-11-07 | 5 | Instruction | Step 4 seen | `UserModule` exports `UserService`. Restart reached `Nest application successfully started` with `OrdersModule` initialized. `.env` has no `PORT`, so listen still uses the `?? 3000` fallback. Oral not asked. |
+| 2026-11-07 | 5 | Quiz | Build done | `PORT=3001` in `.env`. `curl http://localhost:3001/` returned `Hello World!`, so `ConfigService` supplied the port. Oral not answered. |
+| 2026-11-07 | 5 | Quiz | Oral weak | Providers answer covered privacy plus export and import. Missed: `providers` constructs in that module; `forRoot` is one app setup (not the same as global); repeating `forRoot` duplicates config; `forFeature` is one feature’s slice. One retry left. Did not name `UserModule` or `AppModule`. |
+| 2026-11-07 | 5 | Quiz | Oral failed | Retry named the export crash: `OrdersModule` cannot inject until `UserModule` exports and `OrdersModule` imports. `forRoot` answer described `isGlobal` (`ConfigService` in `main.ts` without importing config again). Still missing: `providers` constructs `UserService`; `forRoot` is one app setup; repeating it duplicates config; `forFeature` is one feature’s slice. Day 5 stays unchecked. |
+| 2026-11-07 | 5 | Doubt | Retaught | Explained `providers` constructs `UserService`, `exports` shares it, `forRoot` once on `AppModule`, `isGlobal` is separate, `forFeature` is one feature slice, repeating `forRoot` duplicates config. Waiting for their own restatement. |
+| 2026-11-07 | 5 | Quiz | Oral recited | Restatement included every required point and named `UserModule`, `OrdersModule`, and `AppModule`, but it follows the reteach paragraph. Not a pass. Own-words answer still required. Day 5 stays unchecked. |
+| 2026-11-07 | 5 | Quiz | Oral recited again | Second write-up still follows the reteach: `providers`/`exports` on `UserModule`, `forRoot` once on `AppModule`, `isGlobal` separate, `forFeature` as a TypeORM repository. Content is complete. Wording is the same article. Not a pass. Day 5 stays unchecked. |
+| 2026-11-07 | 5 | Quiz | Day 5 checked | Own-words oral: Nest creates `UserService` in `UserModule`; `OrdersModule` needs the export plus the import or `OrdersService` cannot use it; `forRoot` is the app setup on the main module and repeating it sets the same config up again; `isGlobal` is separate; `forFeature` registers one feature’s repository. `PORT=3001` already proved config. Day 6 not started. |
 
 ---
 
